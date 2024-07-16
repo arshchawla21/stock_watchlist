@@ -15,12 +15,18 @@ Stock Price Dashboard is a Python web application built using Streamlit that all
 
 ## Installation
 1. Clone the repository:
-`git clone https://github.com/arshchawla21/stock_watchlist.git
-cd stock_watchlist`
+```sh
+git clone https://github.com/arshchawla21/stock_watchlist.git
+cd stock_watchlist
+```
 2. Install the required dependencies:
-`pip install -r requirements.txt`
+```sh
+pip install -r requirements.txt
+```
 3. Run the Streamlit app:
-`streamlit run stock_app.py`
+```sh
+streamlit run stock_app.py
+```
 
 ## Usage
 - Open the Streamlit app in your browser.
