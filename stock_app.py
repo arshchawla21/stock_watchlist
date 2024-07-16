@@ -72,12 +72,23 @@ def displayStockInfo(ticker):
 
 # Function to display stock price chart, for a given ticker
 def displayChart(ticker):
-  stockInfo = yf.Ticker(ticker)
-  today = datetime.datetime.now().date()
-  ## data = stockInfo.history(start=today, end=today + datetime.timedelta(days=1), interval="1m") ***FOR LOCAL PROGRAMS
-  data = stockInfo.history(start=today, end=datetime.datetime.now()-datetime.timedelta(hours=4), interval="1m") # ***FOR STREAMLIT HOSTING
+stockInfo = yf.Ticker(ticker)
+  # Get the current time in UTC
+  utc_now = datetime.datetime.now(pytz.utc)
+  utc_today = datetime.datetime.now().date()
+  # Convert the current time to Eastern Standard Time (EST)
+  est = pytz.timezone('US/Eastern')
+  est_now = utc_now.astimezone(est)
+  # Define market open time
+  market_open_time = est_now.replace(hour=9, minute=30, second=0, microsecond=0)
+  # Today's date
+  todayET = datetime.datetime.now(est).date()
 
-
+  if est_now < market_open_time:
+    data = stockInfo.history(start=todayET-datetime.timedelta(1), end=todayET, interval="1m")
+  else:
+    data = stockInfo.history(start=todayET, end=est_now, interval="1m")
+      
   if not data.empty:
     data.reset_index(inplace=True)
     data['Datetime'] = pd.to_datetime(data['Datetime'])
