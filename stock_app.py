@@ -74,7 +74,9 @@ def displayStockInfo(ticker):
 def displayChart(ticker):
   stockInfo = yf.Ticker(ticker)
   today = datetime.datetime.now().date()
-  data = stockInfo.history(start=today, end=datetime.datetime.now(), interval="1m")
+  ## data = stockInfo.history(start=today, end=today + datetime.timedelta(days=1), interval="1m") ***FOR LOCAL PROGRAMS
+  data = stockInfo.history(start=today, end=datetime.datetime.now()-datetime.timedelta(hours=4), interval="1m") # ***FOR STREAMLIT HOSTING
+
 
   if not data.empty:
     data.reset_index(inplace=True)
