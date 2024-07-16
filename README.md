@@ -41,7 +41,7 @@ streamlit run stock_app.py
 - altair: For creating interactive and customizable charts.
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE]{https://github.com/arshchawla21/stock_watchlist/edit/main/LICENSE.md} file for more details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/arshchawla21/stock_watchlist/edit/main/LICENSE.md) file for more details.
 
 ## Acknowledgements
 - The Yahoo Finance API for providing access to real-time stock data.
