@@ -32,7 +32,7 @@ def displayTickerBubbles():
   for i, bubble in enumerate(st.session_state.bubbles):
       if cols[i % 10].button(bubble, key=bubble):
           remove_bubble(bubble)
-          st.experimental_rerun() # Refresh program upon addition of ticker bubble
+          st.rerun() # Refresh program upon addition of ticker bubble
 
 # Function to display input widgets
 def displayInput():
