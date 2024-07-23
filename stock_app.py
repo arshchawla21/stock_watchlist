@@ -58,17 +58,17 @@ def displayStockInfo(ticker):
         st.metric(label="Price",
                   value=str(('{:,}'.format(currentPrice))) + " " + stockInfo.info['currency'], 
                   delta=str(('{:,}'.format(round(dailyChange,2)))) + " %")
-  with vol:
-    currentVolume = stockInfo.info['volume']
-    averageVolume = stockInfo.info['averageVolume']
-    dailyVolChange = round((currentVolume-averageVolume)/averageVolume,4) * 100
-    st.metric(label="Volume",
-              value=str(('{:,}'.format(currentVolume))), 
-              delta=str(('{:,}'.format(round(dailyVolChange,2)))) + " %")
-  with float:
-    sharesFloat = stockInfo.info['floatShares']
-    st.metric(label="Float",
-              value=str(('{:,}'.format(sharesFloat))))
+    with vol:
+        currentVolume = stockInfo.info['volume']
+        averageVolume = stockInfo.info['averageVolume']
+        dailyVolChange = round((currentVolume-averageVolume)/averageVolume,4) * 100
+        st.metric(label="Volume",
+                  value=str(('{:,}'.format(currentVolume))), 
+                  delta=str(('{:,}'.format(round(dailyVolChange,2)))) + " %")
+    with float:
+        sharesFloat = stockInfo.info['floatShares']
+        st.metric(label="Float",
+                  value=str(('{:,}'.format(sharesFloat))))
 
 # Function to display stock price chart, for a given ticker
 def displayChart(ticker):
