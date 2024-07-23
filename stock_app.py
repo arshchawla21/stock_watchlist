@@ -48,16 +48,16 @@ def displayInput():
 
 # Function to visualise stock information, for a given ticker
 def displayStockInfo(ticker):
-  stockInfo = yf.Ticker(ticker)
-  st.subheader(str(stockInfo.info['longName']))
-  price, vol, float = st.columns(3)
-  with price:
-    currentPrice = stockInfo.info['currentPrice']
-    previousClose = stockInfo.info['previousClose']
-    dailyChange = round((currentPrice-previousClose)/previousClose,4) * 100
-    st.metric(label="Price",
-              value=str(('{:,}'.format(currentPrice))) + " " + stockInfo.info['currency'], 
-              delta=str(('{:,}'.format(round(dailyChange,2)))) + " %")
+    stockInfo = yf.Ticker(ticker)
+    st.subheader(str(stockInfo.info['longName']))
+    price, vol, float = st.columns(3)
+    with price:
+        currentPrice = stockInfo.info['currentPrice']
+        previousClose = stockInfo.info['previousClose']
+        dailyChange = round((currentPrice-previousClose)/previousClose,4) * 100
+        st.metric(label="Price",
+                  value=str(('{:,}'.format(currentPrice))) + " " + stockInfo.info['currency'], 
+                  delta=str(('{:,}'.format(round(dailyChange,2)))) + " %")
   with vol:
     currentVolume = stockInfo.info['volume']
     averageVolume = stockInfo.info['averageVolume']
