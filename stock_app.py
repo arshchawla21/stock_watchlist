@@ -3,16 +3,17 @@ import pandas as pd
 import yfinance as yf
 import datetime
 import altair as alt
+import pytz
 
 # Function to add a ticker bubble
 def add_bubble():
-    if st.session_state.new_bubble:
-      st.session_state.bubbles.append(st.session_state.new_bubble)
-      st.session_state.new_bubble = ''
+  if st.session_state.new_bubble:
+    st.session_state.bubbles.append(st.session_state.new_bubble)
+    st.session_state.new_bubble = ''
 
 # Function to remove a ticker bubble
 def remove_bubble(bubble):
-    st.session_state.bubbles.remove(bubble)  
+  st.session_state.bubbles.remove(bubble)  
 
 # Function to visualise ticker bubbles
 def displayTickerBubbles():
@@ -48,31 +49,31 @@ def displayInput():
 
 # Function to visualise stock information, for a given ticker
 def displayStockInfo(ticker):
-    stockInfo = yf.Ticker(ticker)
-    st.subheader(str(stockInfo.info['longName']))
-    price, vol, float = st.columns(3)
-    with price:
-        currentPrice = stockInfo.info['currentPrice']
-        previousClose = stockInfo.info['previousClose']
-        dailyChange = round((currentPrice-previousClose)/previousClose,4) * 100
-        st.metric(label="Price",
-                  value=str(('{:,}'.format(currentPrice))) + " " + stockInfo.info['currency'], 
-                  delta=str(('{:,}'.format(round(dailyChange,2)))) + " %")
-    with vol:
-        currentVolume = stockInfo.info['volume']
-        averageVolume = stockInfo.info['averageVolume']
-        dailyVolChange = round((currentVolume-averageVolume)/averageVolume,4) * 100
-        st.metric(label="Volume",
-                  value=str(('{:,}'.format(currentVolume))), 
-                  delta=str(('{:,}'.format(round(dailyVolChange,2)))) + " %")
-    with float:
-        sharesFloat = stockInfo.info['floatShares']
-        st.metric(label="Float",
-                  value=str(('{:,}'.format(sharesFloat))))
+  stockInfo = yf.Ticker(ticker)
+  st.subheader(str(stockInfo.info['longName']))
+  price, vol, float = st.columns(3)
+  with price:
+    currentPrice = stockInfo.info['currentPrice']
+    previousClose = stockInfo.info['previousClose']
+    dailyChange = round((currentPrice-previousClose)/previousClose,4) * 100
+    st.metric(label="Price",
+              value=str(('{:,}'.format(currentPrice))) + " " + stockInfo.info['currency'], 
+              delta=str(('{:,}'.format(round(dailyChange,2)))) + " %")
+  with vol:
+    currentVolume = stockInfo.info['volume']
+    averageVolume = stockInfo.info['averageVolume']
+    dailyVolChange = round((currentVolume-averageVolume)/averageVolume,4) * 100
+    st.metric(label="Volume",
+              value=str(('{:,}'.format(currentVolume))), 
+              delta=str(('{:,}'.format(round(dailyVolChange,2)))) + " %")
+  with float:
+    sharesFloat = stockInfo.info['floatShares']
+    st.metric(label="Float",
+              value=str(('{:,}'.format(sharesFloat))))
 
 # Function to display stock price chart, for a given ticker
 def displayChart(ticker):
-stockInfo = yf.Ticker(ticker)
+  stockInfo = yf.Ticker(ticker)
   # Get the current time in UTC
   utc_now = datetime.datetime.now(pytz.utc)
   utc_today = datetime.datetime.now().date()
@@ -88,8 +89,17 @@ stockInfo = yf.Ticker(ticker)
     data = stockInfo.history(start=todayET-datetime.timedelta(1), end=todayET, interval="1m")
   else:
     data = stockInfo.history(start=todayET, end=est_now, interval="1m")
-      
+
+
+  # # Before market open
+  # if (datetime.datetime.now(tz) < todayET + datetime.timedelta(0,9.5*60*60,0)):
+  #   data = stockInfo.history(start=todayET - datetime.timedelta(1), end=todayET, interval="1m") # ***FOR STREAMLIT HOSTING
+  # else:
+  #   data = stockInfo.history(start=todayET, end=datetime.datetime.now(tz), interval="1m") # ***FOR STREAMLIT HOSTING
+  # ## data = stockInfo.history(start=today, end=today + datetime.timedelta(days=1), interval="1m") ***FOR LOCAL PROGRAMS
+
   if not data.empty:
+    
     data.reset_index(inplace=True)
     data['Datetime'] = pd.to_datetime(data['Datetime'])
       
