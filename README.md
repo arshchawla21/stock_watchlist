@@ -6,6 +6,10 @@ Access and interact with the Real-time Stock Watchlist app below, or using this 
 ## Overview
 Stock Price Dashboard is a Python web application built using Streamlit that allows users to view real-time stock information for any given ticker symbol. This app leverages the Yahoo Finance API to fetch and display up-to-date stock price data, providing an intuitive and interactive experience for users interested in tracking stock market movements.
 
+<p align="center">
+<img width="623" alt="image" src="https://github.com/user-attachments/assets/89e29ae8-fb00-4f26-8880-fc6e9bf13167">
+</p>
+
 ## Features
 - Real-Time Data: Fetches and displays real-time stock price information using the Yahoo Finance API.
 - Interactive Charting: Provides interactive and zoomable line charts for visualizing stock price movements throughout the current trading day.
